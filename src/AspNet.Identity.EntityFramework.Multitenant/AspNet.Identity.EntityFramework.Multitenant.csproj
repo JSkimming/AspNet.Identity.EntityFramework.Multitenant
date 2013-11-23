@@ -49,6 +49,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
     <Compile Include="IMultitenantUser.cs" />
     <Compile Include="IMultitenantUser.Generic.cs" />
     <Compile Include="MultitenantIdentityDbContext.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AspNet.Identity.EntityFramework.Multitenant.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

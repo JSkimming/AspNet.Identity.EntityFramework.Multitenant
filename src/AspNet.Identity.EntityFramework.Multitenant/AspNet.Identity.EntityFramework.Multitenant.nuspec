@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+This tokenized .nuspec manifest file is targeting the latest NuGet namespace,
+which ensures you can benefit from the latest packaging features.
+
+If desired, you can change the XML-namespace and target the original XSD.
+To do so, replace the current package declaration by the following:
+
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+
+Run "nuget.exe pack <project>" to build a nuget package for this project
+using this tokenized nuspec file.
+
+-->
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>0.5.0</version>
+    <title>$title$</title>
+    <authors>James Skimming</authors>
+    <owners>James Skimming</owners>
+    <licenseUrl>https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <tags>Identity Membership Entity Framework Multitenant Multi-tenant</tags>
+  </metadata>
+</package>
