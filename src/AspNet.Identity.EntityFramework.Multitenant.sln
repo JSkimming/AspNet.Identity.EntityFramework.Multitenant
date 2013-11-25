@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.EntityFrame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VanillaImplementation", "Examples\VanillaImplementation\VanillaImplementation.csproj", "{FA977276-8BDB-476A-B254-CD37D4EE66D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegerPkImplementation", "Examples\IntegerPkImplementation\IntegerPkImplementation.csproj", "{B8C6C2AE-C8B9-4CB3-9954-7A9EC3C00E09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{FA977276-8BDB-476A-B254-CD37D4EE66D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA977276-8BDB-476A-B254-CD37D4EE66D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA977276-8BDB-476A-B254-CD37D4EE66D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C6C2AE-C8B9-4CB3-9954-7A9EC3C00E09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C6C2AE-C8B9-4CB3-9954-7A9EC3C00E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C6C2AE-C8B9-4CB3-9954-7A9EC3C00E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C6C2AE-C8B9-4CB3-9954-7A9EC3C00E09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
