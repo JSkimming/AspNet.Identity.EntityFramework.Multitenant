@@ -23,6 +23,8 @@
             <PackageSource Include="https://www.nuget.org/api/v2/" />
             <PackageSource Include="https://my-nuget-source/nuget/" />
         -->
+        <PackageSource Include="https://www.nuget.org/api/v2/" />
+        <PackageSource Include="http://www.myget.org/F/aspnetwebstacknightly/" />
     </ItemGroup>
 
     <PropertyGroup Condition=" '$(OS)' == 'Windows_NT'">
