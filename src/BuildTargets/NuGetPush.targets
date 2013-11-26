@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <WorkingDir Condition="'$(WorkingDir)'==''">$([System.IO.Path]::GetFullPath('.'))</WorkingDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <NuGetExePathGroup Condition="'$(NuGetExePath)'==''" Include="$(WorkingDir)\**\NuGet.exe" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NuGetExePath Condition="'$(NuGetExePath)'==''">@(NuGetExePathGroup)</NuGetExePath>
+  </PropertyGroup>
+
+  <!--
+  Target to test whether the necessary properties have been predefined.
+  -->
+  <Target Name="TestNuGetPushProperties">
+
+    <!-- Do the error checking to ensure the appropriate items are defined.-->
+    <Error Condition="'$(WorkingDir)'==''" Text="WorkingDir is not defined."/>
+    <Error Condition="'$(NuGetExePath)'==''" Text="NuGetExePath is not defined."/>
+    <Error Condition="!Exists('$(NuGetExePath)')" Text="'$(NuGetExePath)' does not exist."/>
+
+    <Message Text="NuGetPush.targets Properties:-" />
+    <Message Text="WorkingDir: '$(WorkingDir)'" />
+    <Message Text="NuGetExePath: '$(NuGetExePath)'" />
+  </Target>
+
+  <!--
+  Gets the list of nuget packages.
+  -->
+  <Target Name="GetNuGetPackageFiles">
+
+    <CreateItem Include="$(WorkingDir)\**\bin\**\*.nupkg" Exclude="$(WorkingDir)\**\bin\**\*.symbols.nupkg">
+      <Output TaskParameter="Include" ItemName="NuGetPackageFiles" />
+    </CreateItem>
+
+    <Message Text="Found NuGet Packages:-" Condition="'@(NuGetPackageFiles)' != ''"/>
+    <Message Text="%(NuGetPackageFiles.FullPath)" />
+  </Target>
+  
+  <!--
+  Push the packages to NuGet.
+  -->
+  <Target Name="CoreNuGetPush"
+          Inputs="%(NuGetPackageFiles.FullPath)"
+          Outputs="%(NuGetPackageFiles.Filename).xml"
+          DependsOnTargets="GetNuGetPackageFiles">
+
+    <PropertyGroup>
+      <PushCommand>"$(NuGetExePath)" push "%(NuGetPackageFiles.FullPath)"</PushCommand>
+    </PropertyGroup>
+
+    <!--<Message Text="$(PushCommand)" Importance="High" />-->
+    <Exec Command="$(PushCommand)" />
+
+  </Target>
+
+  <!--
+  Property group to define the dependencies of PushNuGetPackages target
+  -->
+  <PropertyGroup>
+    <PushNuGetPackages>
+      $(PushNuGetPackages);
+      TestNuGetPushProperties;
+      CoreNuGetPush;
+    </PushNuGetPackages>
+  </PropertyGroup>
+  <Target Name="PushNuGetPackages" DependsOnTargets="$(PushNuGetPackages)" />
+
+</Project>
