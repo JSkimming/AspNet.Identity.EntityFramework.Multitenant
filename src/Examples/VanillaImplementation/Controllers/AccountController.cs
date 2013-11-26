@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+using AspNet.Identity.EntityFramework.Multitenant;
 using Microsoft.Owin.Security;
 using VanillaImplementation.Models;
 
@@ -16,7 +16,7 @@ namespace VanillaImplementation.Controllers
     public class AccountController : Controller
     {
         public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            : this(new UserManager<ApplicationUser>(new MultitenantUserStore<ApplicationUser>(new ApplicationDbContext()) { TenantId = "TestTenant" }))
         {
         }
 
