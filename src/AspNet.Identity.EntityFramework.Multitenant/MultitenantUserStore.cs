@@ -10,6 +10,7 @@ namespace AspNet.Identity.EntityFramework.Multitenant
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+    using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
     /// <summary>
@@ -17,7 +18,7 @@ namespace AspNet.Identity.EntityFramework.Multitenant
     /// </summary>
     /// <typeparam name="TUser">The type of user.</typeparam>
     public class MultitenantUserStore<TUser>
-        : MultitenantUserStore<TUser, IdentityRole, string, string, MultitenantIdentityUserLogin, IdentityUserRole, IdentityUserClaim>
+        : MultitenantUserStore<TUser, IdentityRole, string, string, MultitenantIdentityUserLogin, IdentityUserRole, IdentityUserClaim>, IUserStore<TUser>
         where TUser : MultitenantIdentityUser
     {
         /// <summary>
