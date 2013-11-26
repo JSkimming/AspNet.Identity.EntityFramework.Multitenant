@@ -16,16 +16,16 @@ namespace IntegerPkImplementation.Controllers
     public class AccountController : Controller
     {
         public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            : this(new UserManager<ApplicationUser, int>(new ApplicatonUserStore(new ApplicationDbContext()) { TenantId = 1 }))
         {
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser, int> userManager)
         {
             UserManager = userManager;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public UserManager<ApplicationUser, int> UserManager { get; private set; }
 
         //
         // GET: /Account/Login
@@ -102,7 +102,7 @@ namespace IntegerPkImplementation.Controllers
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
-            IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+            IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserIdInt(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
                 message = ManageMessageId.RemoveLoginSuccess;
@@ -142,7 +142,7 @@ namespace IntegerPkImplementation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserIdInt(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -164,7 +164,7 @@ namespace IntegerPkImplementation.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserIdInt(), model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
@@ -237,7 +237,7 @@ namespace IntegerPkImplementation.Controllers
             {
                 return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
             }
-            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
+            var result = await UserManager.AddLoginAsync(User.Identity.GetUserIdInt(), loginInfo.Login);
             if (result.Succeeded)
             {
                 return RedirectToAction("Manage");
@@ -304,7 +304,7 @@ namespace IntegerPkImplementation.Controllers
         [ChildActionOnly]
         public ActionResult RemoveAccountList()
         {
-            var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
+            var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserIdInt());
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
@@ -348,7 +348,7 @@ namespace IntegerPkImplementation.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var user = UserManager.FindById(User.Identity.GetUserIdInt());
             if (user != null)
             {
                 return user.PasswordHash != null;
