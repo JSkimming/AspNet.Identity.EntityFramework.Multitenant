@@ -2,7 +2,7 @@
 @IF NOT ["%msbuild%"] == [""] GOTO :EOF
 
 :: Use VS2013 if installed.
-@IF EXIST "%XVS120COMNTOOLS%vsvars32.bat" (
+@IF EXIST "%VS120COMNTOOLS%vsvars32.bat" (
     echo Setting up variables for Visual Studio 2013.
     CALL "%VS120COMNTOOLS%vsvars32.bat"
     SET msbuild=MSBuild.exe
