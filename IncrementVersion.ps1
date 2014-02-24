@@ -36,7 +36,7 @@ function IncrementVersion-NuSpec($file, $rank)
 {
     (Get-Content $file) |
     % {
-        $exp = ([regex]'(^\s*<version>)(\d+\.\d+\.\d+)(-alpha)(</version>\s*$)')
+        $exp = ([regex]'(^\s*<version>)(\d+\.\d+\.\d+)(-beta)(</version>\s*$)')
         $match = $exp.match($_)
         if ($match.success)
         {
