@@ -8,7 +8,9 @@ namespace AspNet.Identity.EntityFramework.Multitenant
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure.Annotations;
     using System.Linq;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -48,7 +50,13 @@ namespace AspNet.Identity.EntityFramework.Multitenant
             modelBuilder.Entity<TUser>()
                 .Property(e => e.TenantId)
                 .HasMaxLength(128)
-                .IsRequired();
+                .IsRequired()
+                .HasColumnAnnotation(
+                    "Index",
+                    new IndexAnnotation(new IndexAttribute("UserNameIndex", order: 0)
+                        {
+                            IsUnique = true
+                        }));
         }
     }
 }

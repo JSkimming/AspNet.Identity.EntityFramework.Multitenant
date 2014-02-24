@@ -8,8 +8,10 @@ namespace AspNet.Identity.EntityFramework.Multitenant
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Validation;
     using System.Linq;
     using Microsoft.AspNet.Identity;
@@ -86,6 +88,15 @@ namespace AspNet.Identity.EntityFramework.Multitenant
 
             modelBuilder.Entity<TUserLogin>()
                 .HasKey(e => new { e.TenantId, e.LoginProvider, e.ProviderKey, e.UserId });
+
+            modelBuilder.Entity<TUser>()
+                .Property(u => u.UserName)
+                .HasColumnAnnotation(
+                    "Index",
+                    new IndexAnnotation(new IndexAttribute("UserNameIndex", order: 1)
+                        {
+                            IsUnique = true
+                        }));
         }
     }
 }

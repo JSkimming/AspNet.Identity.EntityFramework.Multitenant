@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using AspNet.Identity.EntityFramework.Multitenant;
 
 namespace IntegerPkImplementation.Models
@@ -40,6 +42,21 @@ namespace IntegerPkImplementation.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(e => e.TenantId)
+                .IsRequired()
+                .HasColumnAnnotation(
+                    "Index",
+                    new IndexAnnotation(new IndexAttribute("UserNameIndex", order: 0)
+                        {
+                            IsUnique = true
+                        }));
         }
     }
 }
