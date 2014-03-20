@@ -15,7 +15,7 @@ using this tokenized nuspec file.
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata>
     <id>$id$</id>
-    <version>0.10.0-beta</version>
+    <version>1.0.0</version>
     <title>$title$</title>
     <authors>James Skimming</authors>
     <owners>James Skimming</owners>
@@ -24,7 +24,7 @@ using this tokenized nuspec file.
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Adds multi-tenant support for ASP.NET Identity using EntityFramework.
 
-The extensibility required to support multi-tenancy is not possible with the 1.0.0 release of Microsoft.AspNet.Identity.EntityFramework, but is available in the 2.0 beta release.</description>
+The extensibility required to support multi-tenancy is not possible with the 1.0.0 release of Microsoft.AspNet.Identity.EntityFramework, but is available in the 2.0 release.</description>
     <summary>$description$</summary>
     <tags>Identity Membership Entity Framework Multitenant Multi-tenant</tags>
   </metadata>
