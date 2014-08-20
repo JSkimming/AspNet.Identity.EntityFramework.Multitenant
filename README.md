@@ -28,5 +28,5 @@ Two simple sites that make use the package to allow for multi-tenancy are provid
 
 1. [Vanilla Implementation](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/tree/master/src/Examples/VanillaImplementation) which is the standard MVC5 template project that uses a string primary keys.
   * The changes necessary to provide multi-tenancy have been isolated to this [commit](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/commit/2360ea55ac89195c645e130927835f4a4bea3e58).
-1. [Integer Primary Key Implementation(https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/tree/master/src/Examples/IntegerPkImplementation) which is making a few more customisations to use integer primary keys
+1. [Integer Primary Key Implementation](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/tree/master/src/Examples/IntegerPkImplementation) which is making a few more customisations to use integer primary keys
   * The changes necessary to provide multi-tenancy have been isolated to this [commit](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/commit/9d853306d5d5e25750f6875da15afe9f5ead73f6).
