@@ -16,7 +16,7 @@ namespace AspNet.Identity.EntityFramework.Multitenant
     /// </summary>
     /// <typeparam name="TKey">The type of <see cref="IUser{TKey}.Id"/> for a user.</typeparam>
     /// <typeparam name="TTenantKey">The type of <see cref="TenantId"/> for a user.</typeparam>
-    public interface IMultitenantUser<TKey, TTenantKey> : IUser<TKey>
+    public interface IMultitenantUser<out TKey, TTenantKey> : IUser<TKey>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the tenant.
