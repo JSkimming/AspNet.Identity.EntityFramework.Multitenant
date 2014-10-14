@@ -1,0 +1,59 @@
+﻿# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# Retain the NuGet package cache between builds
+cache:
+  - C:\Users\appveyor\AppData\Local\NuGet\Cache
+
+# version format
+version: 1.0.0.{build}
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# http://blog.appveyor.com/2014/06/04/shallow-clone-for-git-repositories/
+shallow_clone: true
+
+# Automatically register private account and/or project AppVeyor NuGet feeds.
+nuget:
+  account_feed: true
+  project_feed: true
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+build:
+  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
+
+  # MSBuild verbosity level
+  verbosity: minimal
+
+# scripts to run before build
+before_build: |
+  PowerShell .\CiVersion.ps1
+  nuget restore src\AspNet.Identity.EntityFramework.Multitenant.sln
+
+#---------------------------------#
+#         notifications           #
+#---------------------------------#
+
+notifications:
+
+  # Slack
+  - provider: Slack
+    auth_token:
+      secure: AkSNuuHmfzAFp2+Oq00NRQFOfrXl4ue08SHx0FC2WTeXSiZv8uVKI3ZBWns7HTcV
+    channel: multitenant
