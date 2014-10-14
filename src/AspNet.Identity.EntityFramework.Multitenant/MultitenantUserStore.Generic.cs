@@ -64,7 +64,7 @@ namespace AspNet.Identity.EntityFramework.Multitenant
         /// <summary>
         /// Gets or sets the <see cref="IMultitenantUser{TKey, TTenantKey}.TenantId"/> to be used in queries.
         /// </summary>
-        public TTenantKey TenantId { get; set; }
+        public virtual TTenantKey TenantId { get; set; }
 
         /// <summary>
         /// Gets the set of users.
