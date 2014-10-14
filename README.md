@@ -1,6 +1,8 @@
 ASP.NET Identity EntityFramework Multitenant
 ============================================
 
+[![NuGet Version](https://img.shields.io/nuget/v/AspNet.Identity.EntityFramework.Multitenant.svg)](https://www.nuget.org/packages/AspNet.Identity.EntityFramework.Multitenant/ "NuGet Version") [![NuGet Downloads](https://img.shields.io/nuget/dt/AspNet.Identity.EntityFramework.Multitenant.svg)](https://www.nuget.org/packages/AspNet.Identity.EntityFramework.Multitenant/ "NuGet Downloads") [![Build status](https://img.shields.io/appveyor/ci/JSkimming/aspnet-identity-entityframework-multitenant.svg)](https://ci.appveyor.com/project/JSkimming/aspnet-identity-entityframework-multitenant "Build status") [![Latest release](https://img.shields.io/github/release/JSkimming/AspNet.Identity.EntityFramework.Multitenant.svg)](https://github.com/AutoTestNET/AspNet.Identity.EntityFramework.Multitenant/releases "Latest release")
+
 Multi-tenant support for ASP.NET Identity using Entity Framework
 
 This library was created to solve a problem I asked on [Stack Overflow](http://stackoverflow.com/q/20037145 "How to implement Multi-tenant User Login using ASP.NET Identity"), it was needed for a commercial project, this part has been open sourced in the hope that it may receive improvements and future support by receiving wider usage.
