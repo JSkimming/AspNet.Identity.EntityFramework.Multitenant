@@ -9,6 +9,10 @@ This library was created to solve a problem I asked on [Stack Overflow](http://s
 
 It is available to download as a [NuGet package](http://www.nuget.org/packages/AspNet.Identity.EntityFramework.Multitenant/ "AspNet.Identity.EntityFramework.Multitenant").
 
+Additionally a Continious integration Build NuGet feed is also provided by [AppVeyor](http://www.appveyor.com/)
+https://ci.appveyor.com/nuget/aspnet-identity-entityframewor-avbe23sgoogy
+Add this feed to your [NuGet Configuration Settings](http://docs.nuget.org/docs/reference/nuget-config-settings) to include the CI build, which includes yet to be accepted pull requests.
+
 ## What has been multi-tenanted?
 
 The intention is to provide a means to allow for identical users (uniquely keyed upon email/username/external login) to register and authenticate multiple times under different tenants, but still remaining unique within a tenant, all within the same database and entity context.
