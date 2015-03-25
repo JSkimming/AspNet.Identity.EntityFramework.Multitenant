@@ -40,11 +40,6 @@ namespace AspNet.Identity.EntityFramework.Multitenant
         private bool _disposed;
 
         /// <summary>
-        /// Backing field for the <see cref="UserSet"/> property.
-        /// </summary>
-        private DbSet<TUser> _userSet;
-
-        /// <summary>
         /// Backing field for the <see cref="Logins"/> property.
         /// </summary>
         private DbSet<TUserLogin> _logins;
@@ -65,14 +60,6 @@ namespace AspNet.Identity.EntityFramework.Multitenant
         /// Gets or sets the <see cref="IMultitenantUser{TKey, TTenantKey}.TenantId"/> to be used in queries.
         /// </summary>
         public virtual TTenantKey TenantId { get; set; }
-
-        /// <summary>
-        /// Gets the set of users.
-        /// </summary>
-        private DbSet<TUser> UserSet
-        {
-            get { return _userSet ?? (_userSet = Context.Set<TUser>()); }
-        }
 
         /// <summary>
         /// Gets the set of users.
@@ -111,8 +98,7 @@ namespace AspNet.Identity.EntityFramework.Multitenant
                 throw new ArgumentNullException("userName");
 
             ThrowIfInvalid();
-
-            return Users.SingleOrDefaultAsync(u => u.UserName == userName && u.TenantId.Equals(TenantId));
+            return GetUserAggregateAsync(u => u.UserName == userName && u.TenantId.Equals(TenantId));
         }
 
         /// <summary>
@@ -166,7 +152,21 @@ namespace AspNet.Identity.EntityFramework.Multitenant
             if (EqualityComparer<TKey>.Default.Equals(userId, default(TKey)))
                 return null;
 
-            return await UserSet.FindAsync(userId).ConfigureAwait(false);
+            return await GetUserAggregateAsync(u => u.Id.Equals(userId));
+        }
+
+        /// <summary>
+        /// Find a user by email
+        /// </summary>
+        /// <param name="email">The Email address of a <typeparamref name="TUser"/>.</param>
+        /// <returns>The <typeparamref name="TUser"/> if found; otherwise <c>null</c>.</returns>
+        public override Task<TUser> FindByEmailAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentNullException("email");
+
+            ThrowIfInvalid();
+            return GetUserAggregateAsync(u => u.Email.ToUpper() == email.ToUpper() && u.TenantId.Equals(TenantId));
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace AspNet.Identity.EntityFramework.Multitenant
         }
 
         /// <summary>
-        /// Throws exceptions if the state of the object is invalid or has been disposes.
+        /// Throws exceptions if the state of the object is invalid or has been disposed.
         /// </summary>
         private void ThrowIfInvalid()
         {
