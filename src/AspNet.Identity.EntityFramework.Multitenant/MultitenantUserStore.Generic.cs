@@ -94,9 +94,6 @@ namespace AspNet.Identity.EntityFramework.Multitenant
         /// <returns>The <typeparamref name="TUser"/> if found; otherwise <c>null</c>.</returns>
         public override Task<TUser> FindByNameAsync(string userName)
         {
-            if (string.IsNullOrWhiteSpace(userName))
-                throw new ArgumentNullException("userName");
-
             ThrowIfInvalid();
             return GetUserAggregateAsync(u => u.UserName == userName && u.TenantId.Equals(TenantId));
         }
@@ -162,9 +159,6 @@ namespace AspNet.Identity.EntityFramework.Multitenant
         /// <returns>The <typeparamref name="TUser"/> if found; otherwise <c>null</c>.</returns>
         public override Task<TUser> FindByEmailAsync(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException("email");
-
             ThrowIfInvalid();
             return GetUserAggregateAsync(u => u.Email.ToUpper() == email.ToUpper() && u.TenantId.Equals(TenantId));
         }
