@@ -13,6 +13,12 @@ Additionally a Continious integration Build NuGet feed is also provided by [AppV
 https://ci.appveyor.com/nuget/aspnet-identity-entityframewor-avbe23sgoogy
 Add this feed to your [NuGet Configuration Settings](http://docs.nuget.org/docs/reference/nuget-config-settings) to include the CI build, which includes yet to be accepted pull requests.
 
+## How to use multi-tenancy
+
+To use this library the `TenantId` property on the `MultitenantUserStore` needs to be set for the relevant tenant. How and when this is set is determined by the application.
+
+Thereafter, the `UserManager` (which has a dependency on the `UserStore`) can be used and it will only find and update users for the specified tenant.
+
 ## What has been multi-tenanted?
 
 The intention is to provide a means to allow for identical users (uniquely keyed upon email/username/external login) to register and authenticate multiple times under different tenants, but still remaining unique within a tenant, all within the same database and entity context.
@@ -24,7 +30,7 @@ Following the same patterns of [Microsoft ASP.NET Identity EntityFramework](http
 1. Use or extend [`MultitenantIdentityUser`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantIdentityUser.cs "MultitenantIdentityUser class") and [`MultitenantIdentityUserLogin`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantIdentityUserLogin.cs "MultitenantIdentityUserLogin class") if you want the `TenantId` to be a string
 1. Extend [`MultitenantIdentityUser<TKey, TTenantKey, TLogin, TRole, TClaim>`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantIdentityUser.Generic.cs "MultitenantIdentityUser generic class") and [`MultitenantIdentityUserLogin<TKey, TTenantKey>`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantIdentityUserLogin.Generic.cs "MultitenantIdentityUserLogin generic class") if you want custom `TenantId`.
 
-The [`UserStore<TUser>`](http://msdn.microsoft.com/en-us/library/dn315446.aspx "UserStore generic Class") has been extended to take have a `TenantId` and to override the necessary methods to implement multi-tenancy. The `TenantId` needs to be specified directly otherwise an [`InvalidOperationException`](http://msdn.microsoft.com/en-us/library/system.invalidoperationexception.aspx "InvalidOperationException class") will be thrown. See the [`MultitenantUserStore<TUser, TRole, TKey, TTenantKey, TUserLogin, TUserRole, TUserClaim>`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantUserStore.Generic.cs "MultitenantUserStore generic class") for more details.
+The [`UserStore<TUser>`](http://msdn.microsoft.com/en-us/library/dn315446.aspx "UserStore generic Class") has been extended to have a `TenantId` property and to override the necessary methods to implement multi-tenancy. The `TenantId` needs to be specified directly otherwise an [`InvalidOperationException`](http://msdn.microsoft.com/en-us/library/system.invalidoperationexception.aspx "InvalidOperationException class") will be thrown. See the [`MultitenantUserStore<TUser, TRole, TKey, TTenantKey, TUserLogin, TUserRole, TUserClaim>`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantUserStore.Generic.cs "MultitenantUserStore generic class") for more details.
 
 Lastly the [`IdentityDbContext<TUser>`](http://msdn.microsoft.com/en-us/library/dn468176.aspx "IdentityDbContext generic class") has been extended to add the necessary validation and model creation to implement multi-tenancy. See the [`MultitenantIdentityDbContext<TUser, TRole, TKey, TTenantKey, TUserLogin, TUserRole, TUserClaim>`](https://github.com/JSkimming/AspNet.Identity.EntityFramework.Multitenant/blob/master/src/AspNet.Identity.EntityFramework.Multitenant/MultitenantIdentityDbContext.Generic.cs "MultitenantIdentityDbContext generic class") for more details.
 
